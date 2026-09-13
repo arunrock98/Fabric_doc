@@ -1,0 +1,16 @@
+# Never publish personal / working files
+*.docx
+*.pdf
+*.doc
+*.rtf
+
+# Local Claude Code state
+.claude/
+daily_fabric_jobs_link.txt
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
