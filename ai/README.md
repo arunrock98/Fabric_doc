@@ -4,6 +4,8 @@ A working reference for the **AI capabilities inside Microsoft Fabric** — Copi
 
 Everything below is generic and employer-neutral.
 
+**See also:** [`claude/`](claude/README.md) — enabling Anthropic Claude in Fabric via Azure AI Foundry, AWS Bedrock, or Anthropic API direct.
+
 ---
 
 ## 1. The AI surface area
