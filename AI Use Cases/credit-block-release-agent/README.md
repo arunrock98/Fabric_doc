@@ -4,7 +4,7 @@ An end-to-end implementation blueprint for an AI agent that assists — and, wit
 
 This doc walks the full lifecycle: business case → discovery → architecture → data ingestion → modeling → policy layer → AI agent → analyst UI → guardrails → deployment → monitoring → roadmap.
 
-Everything below is generic and employer-neutral.
+Everything below is generic and employer-neutral...
 
 ---
 
