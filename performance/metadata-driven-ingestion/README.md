@@ -4,7 +4,6 @@
 > A reusable ELT pattern for Microsoft Fabric. Adding a new source means adding a row to a table, not building a new pipeline.
 
 *Illustrative scenario: the company, volumes and results below are realistic examples, not a specific client engagement.*
-
 ---
 
 ## 1. The business problem
