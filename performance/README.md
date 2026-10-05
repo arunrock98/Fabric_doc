@@ -4,6 +4,8 @@ A practical reference for making Fabric workloads **fast and cheap**. Covers eve
 
 All examples are generic — patterns I use repeatedly, not any employer's code.
 
+**Case studies:** [`metadata-driven-ingestion/`](metadata-driven-ingestion/README.md) — one pipeline, one control table, any number of sources: a reusable ELT pattern that cut a 35-pipeline nightly from 4.5 h to 1.2 h and dropped CU consumption ~40%.
+
 ---
 
 ## 1. Where Fabric performance is won or lost
