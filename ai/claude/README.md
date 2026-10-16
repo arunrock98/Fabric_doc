@@ -4,6 +4,9 @@ A practical guide to using **Anthropic Claude models** inside **Microsoft Fabric
 
 Fabric's built-in Copilot and `ai.*` functions use Azure OpenAI under the hood. This guide covers when you'd want to bring **Claude** into the mix instead, and the three real paths to do it: **Azure AI Foundry**, **AWS Bedrock**, and the **Anthropic API** directly.
 
+**Step-by-step guides:**
+- [`powerbi/`](powerbi/README.md) — Enable Claude for a Power BI semantic model: generate DAX measures, run natural-language Q&A, scaffold reports via PBIP + TMDL.
+
 Everything below is generic and employer-neutral.
 
 ---
