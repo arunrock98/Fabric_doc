@@ -4,7 +4,9 @@ A working reference for the **AI capabilities inside Microsoft Fabric** — Copi
 
 Everything below is generic and employer-neutral.
 
-**See also:** [`claude/`](claude/README.md) — enabling Anthropic Claude in Fabric via Azure AI Foundry, AWS Bedrock, or Anthropic API direct.
+**See also:**
+- [`claude/`](claude/README.md) — enabling Anthropic Claude in Fabric via Azure AI Foundry, AWS Bedrock, or Anthropic API direct.
+- [`document-understanding/`](document-understanding/README.md) — multimodal LLMs turning confirmations, invoices and delivery notes into process data (Fabric-native, no Celonis dependency).
 
 ---
 
