@@ -1,0 +1,50 @@
+# Template: copy to .github/workflows/ at the repository root to activate.
+name: Nightly migration validation
+
+on:
+  schedule:
+    - cron: "17 5 * * *"     # 05:17 UTC, after the nightly loads
+  workflow_dispatch:
+  pull_request:              # run the demo on every pull request
+
+defaults:
+  run:
+    working-directory: s4hana-reporting-migration
+
+jobs:
+  demo:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - name: Run agent on demo data (planted issues, so failures are expected)
+        run: python agent/validation_agent.py --demo || true
+      - uses: actions/upload-artifact@v4
+        with: { name: demo-report, path: s4hana-reporting-migration/output/ }
+
+  validate:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt snowflake-connector-python
+      - name: Run validation agent against Snowflake
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          RESULTS_TABLE: qa.validation_results
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: python agent/validation_agent.py --config config/validation_rules.yml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: validation-report, path: s4hana-reporting-migration/output/ }

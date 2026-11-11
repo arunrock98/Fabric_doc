@@ -1,0 +1,60 @@
+# Validation rules for the legacy (ECC-based) vs. new (S/4HANA-based) finance build.
+# Each rule compares the same fact at a declared grain and reports every difference.
+#
+# Rule types
+#   reconcile   : aggregate both sides at `grain`, compare `measures` (and line counts)
+#   orphan_keys : find fact keys that have no matching member in a dimension
+#
+# Identifiers (tables, columns) are validated by the agent; `filter` is a trusted SQL
+# predicate maintained in Git and reviewed like code.
+
+run:
+  name: S/4HANA reporting migration - parallel run
+  fiscal_year: 2025
+
+defaults:
+  tolerance_abs: 0.01        # absolute tolerance per grain row, in reporting currency
+  tolerance_pct: 0.0         # optional relative tolerance (0.001 = 0.1 %)
+  severity: critical         # critical rules fail the run (exit code 1)
+  top_n: 10                  # mismatch rows shown in the report per rule
+
+rules:
+  - id: gl_total_by_period
+    type: reconcile
+    description: Group-currency totals per company and period (incl. special periods 13-16)
+    legacy_table: legacy.fact_gl_actual
+    new_table: s4.fact_gl_actual
+    grain: [company_code, fiscal_year, period]
+    measures: [amount_gc]
+    count_lines: true
+    filter: "fiscal_year = {fiscal_year}"
+
+  - id: gl_total_by_account
+    type: reconcile
+    description: Totals per company, period and GL account (P&L and balance sheet)
+    legacy_table: legacy.fact_gl_actual
+    new_table: s4.fact_gl_actual
+    grain: [company_code, fiscal_year, period, gl_account]
+    measures: [amount_gc]
+    count_lines: false
+    filter: "fiscal_year = {fiscal_year}"
+
+  - id: gl_total_by_profit_center
+    type: reconcile
+    description: Totals per account and profit center (catches derivation changes)
+    legacy_table: legacy.fact_gl_actual
+    new_table: s4.fact_gl_actual
+    grain: [company_code, fiscal_year, period, gl_account, profit_center]
+    measures: [amount_gc]
+    count_lines: false
+    filter: "fiscal_year = {fiscal_year}"
+    severity: warning
+
+  - id: orphan_gl_accounts
+    type: orphan_keys
+    description: GL accounts in the new fact that are missing from the account dimension
+    fact_table: s4.fact_gl_actual
+    fact_key: gl_account
+    dim_table: dims.dim_account
+    dim_key: gl_account
+    filter: "fiscal_year = {fiscal_year}"

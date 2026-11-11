@@ -47,6 +47,7 @@ This is a living reference — patterns and code snippets I use often on Fabric 
 - `eventstream/` — Eventstream + Eventhouse + Data Activator wiring examples
 - `governance/` — Domain / workspace / capacity layout templates
 - `sap-to-fabric/` — SAP CDC → OneLake ingestion notes, common pitfalls
+- [`s4hana-reporting-migration/`](s4hana-reporting-migration/) — ECC → S/4HANA finance reporting migration playbook and an AI validation agent that reconciles legacy vs new builds (runnable demo)
 - `dp-600-700/` — Study notes and exam preparation references
 
 > Content is added as I extract reusable pieces from real work. Everything here is generic — no employer-specific data, schemas, or code.

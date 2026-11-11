@@ -1,0 +1,3 @@
+pyyaml>=6.0
+duckdb>=1.0
+# For Snowflake mode: snowflake-connector-python>=3.0
