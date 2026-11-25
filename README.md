@@ -47,6 +47,7 @@ This is a living reference — patterns and code snippets I use often on Fabric 
 - `eventstream/` — Eventstream + Eventhouse + Data Activator wiring examples
 - `governance/` — Domain / workspace / capacity layout templates
 - `sap-to-fabric/` — SAP CDC → OneLake ingestion notes, common pitfalls
+- `AI Use Cases/` — end-to-end blueprints (credit-block release agent; real-time sensor analytics & hybrid search on Tiger Cloud)
 - `dp-600-700/` — Study notes and exam preparation references
 
 > Content is added as I extract reusable pieces from real work. Everything here is generic — no employer-specific data, schemas, or code.
